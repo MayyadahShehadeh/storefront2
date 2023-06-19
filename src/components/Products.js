@@ -22,7 +22,7 @@ function Products(props) {
         <div>
             {/* {console.log('prosuctss', props.products)} */}
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 18 }}>
 
 
                     {props.products.map((item, idx) => {
@@ -30,9 +30,9 @@ function Products(props) {
 
                             return (
                                 <Grid item xs={2} sm={4} md={4} key={idx}>
-                                    <Item>
+                                    
 
-                                        <Card sx={{ maxWidth: 345 }} key={idx}>
+                                        <Card sx={{ maxWidth: 200 }} key={idx}>
                                             <CardActionArea>
                                                 <CardMedia
                                                     component="img"
@@ -41,13 +41,13 @@ function Products(props) {
                                                     alt={item.name}
                                                 />
                                                 <CardContent>
-                                                    <Typography gutterBottom variant="h5" component="div">
+                                                    <Typography gutterBottom variant="h6" component="div">
                                                         {item.name}
                                                     </Typography>
-                                                    <Typography gutterBottom variant="h6" component="div">
+                                                    <Typography gutterBottom variant="p" component="div">
                                                         Price: {item.price}
                                                     </Typography>
-                                                    <Typography gutterBottom variant="h6" component="div">
+                                                    <Typography gutterBottom variant="p" component="div">
                                                         inventory: {item.inventory}
                                                     </Typography>
                                                     {/* <Typography variant="body2" color="text.secondary">
@@ -66,7 +66,7 @@ function Products(props) {
                                                 </CardActions>
                                             </CardActionArea>
                                         </Card>
-                                    </Item>
+                                   
                                 </Grid>
                             )
                         }
