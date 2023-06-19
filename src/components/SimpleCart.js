@@ -38,7 +38,7 @@ const SimpleCart = (props) => {
                     >
                         Cart ({props.count})
                     </Button>
-                    {console.log('carttt in page', props.cart)}
+                    {/* {console.log('carttt in page', props.cart)} */}
 
                     <Menu
                         id="basic-menu"
@@ -53,23 +53,21 @@ const SimpleCart = (props) => {
 
                                 return (
                                     <MenuItem key={idx}>
-                                        {item.map((item, idx) => {
-                                            return (
+                                       
                                                 <div>
 
                                                     <span>{item.name}</span>
                                                     <Button
                                                         color="secondary"
                                                         onClick={() => {
-                                                            props.deleteProduct(item.name, idx);
+                                                            props.deleteProduct(item, idx);
                                                         }}>
 
                                                         Delete
                                                     </Button>
                                                 </div>
 
-                                            )
-                                        })}
+                                        
                                         {/* {console.log('item.name',item[idx].name)} */}
                                     </MenuItem>
                                 );
