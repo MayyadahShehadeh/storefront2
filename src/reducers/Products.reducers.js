@@ -50,53 +50,52 @@ export default function productsReducer(state = initialStete, action) {
     const { type, payload } = action;
 
     switch (type) {
+        
         case "ACTIVE":
             state.activeProduct = state.products.filter(item => {
                 if (item.category == payload) {
                     return item.category;
                 }
             });
-            // console.log("products", product);
-            // console.log("state", { ...state, product});
+            return state
 
-            return state 
 
 
         case "ADDPRODUCT":
-            state.activeProduct=  state.activeProduct.map((product) => {
+            state.activeProduct = state.activeProduct.map((product) => {
                 if (product.name === payload.name && product.inventory > 0) {
                     product.inventory = product.inventory - 1;
                     return product;
-
                 }
-            return product;
+                return product;
             });
 
             let cart = [...state.cart, payload];
             console.log("paylod", payload);
             console.log('cartt:', cart);
-            console.log(' state.activeProduct::',  state.activeProduct);
+            console.log(' state.activeProduct::', state.activeProduct);
             return { ...state, cart: cart, count: state.count + 1 };
-        // return { ...state,productCart };
+
+
+
 
         case "DELETE":
-            state.activeProduct =  state.activeProduct.map((product) => {
+            state.activeProduct = state.activeProduct.map((product) => {
                 if (product.name === payload.product.name) {
-                  product.inventory = product.inventory + 1;
-        
-                 return product;
-                }
-               return product;
-              });
-        
-            return {
+                    product.inventory = product.inventory + 1;
 
+                    return product;
+                }
+                return product;
+            });
+
+            return {
                 ...state,
-                cart: state.cart.filter((item,idx) => idx !== payload.id),
-                count: state.count - 1 
+                cart: state.cart.filter((item, idx) => idx !== payload.id),
+                count: state.count - 1
             }
-            
- 
+
+
         default:
             return state;
 

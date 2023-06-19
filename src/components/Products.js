@@ -6,7 +6,6 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { connect } from 'react-redux';
 import { addProduct } from '../reducers/actions';
-// import { showCart } from "../store/actions";
 
 function Products(props) {
     const Item = styled(Paper)(({ theme }) => ({
@@ -32,7 +31,7 @@ function Products(props) {
                                 <Grid item xs={2} sm={4} md={4} key={idx}>
                                     <Item>
 
-                                        <Card sx={{ maxWidth: 345 }} key={idx}>
+                                        <Card sx={{ maxWidth: 200 }} key={idx}>
                                             <CardActionArea>
                                                 <CardMedia
                                                     component="img"
@@ -41,18 +40,15 @@ function Products(props) {
                                                     alt={item.name}
                                                 />
                                                 <CardContent>
-                                                    <Typography gutterBottom variant="h5" component="div">
+                                                    <Typography gutterBottom variant="h6" component="div">
                                                         {item.name}
                                                     </Typography>
-                                                    <Typography gutterBottom variant="h6" component="div">
+                                                    <Typography gutterBottom variant="p" component="div">
                                                         Price: {item.price}
                                                     </Typography>
-                                                    <Typography gutterBottom variant="h6" component="div">
+                                                    <Typography gutterBottom variant="p" component="div">
                                                         inventory: {item.inventory}
                                                     </Typography>
-                                                    {/* <Typography variant="body2" color="text.secondary">
-                                                        {item.description}
-                                                    </Typography> */}
                                                 </CardContent>
                                                 <CardActions>
                                                     <Button size="small" onClick={() => {
