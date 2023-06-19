@@ -26,7 +26,7 @@ function Products(props) {
 
 
                     {props.products.map((item, idx) => {
-                        if (props.activeCategory === item.category) {
+                        if (props.activeCategory == item.category) {
 
                             return (
                                 <Grid item xs={2} sm={4} md={4} key={idx}>
@@ -46,6 +46,9 @@ function Products(props) {
                                                     </Typography>
                                                     <Typography gutterBottom variant="h6" component="div">
                                                         Price: {item.price}
+                                                    </Typography>
+                                                    <Typography gutterBottom variant="h6" component="div">
+                                                        inventory: {item.inventory}
                                                     </Typography>
                                                     {/* <Typography variant="body2" color="text.secondary">
                                                         {item.description}
@@ -75,7 +78,7 @@ function Products(props) {
 }
 
 const mapStateToProps = state => ({
-    products: state.productsReducer.products,
+    products: state.productsReducer.activeProduct,
     activeCategory: state.categoryReducer.activeCategory
 })
 const mapDispatchToProps = { addProduct };

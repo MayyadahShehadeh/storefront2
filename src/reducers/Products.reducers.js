@@ -41,7 +41,7 @@ let initialStete = {
             inventory: 18,
         }
     ],
-    // activeProduct: [],
+    activeProduct: [],
     cart: [],
     count: 0,
 }
@@ -51,41 +51,42 @@ export default function productsReducer(state = initialStete, action) {
 
     switch (type) {
         case "ACTIVE":
-            let product = state.products.filter(item => {
+            state.activeProduct = state.products.filter(item => {
                 if (item.category == payload) {
                     return item.category;
                 }
             });
-            console.log("products", product);
+            // console.log("products", product);
             // console.log("state", { ...state, product});
 
-            return { ...state, product };
+            return state 
 
 
         case "ADDPRODUCT":
-            let cartProduct = state.products.filter((product) => {
+            state.activeProduct=  state.activeProduct.map((product) => {
                 if (product.name === payload.name && product.inventory > 0) {
                     product.inventory = product.inventory - 1;
                     return product;
 
                 }
-            
+            return product;
             });
-            console.log('stateeeee::', cartProduct);
-            let cart = [...state.cart, cartProduct];
+
+            let cart = [...state.cart, payload];
             console.log("paylod", payload);
             console.log('cartt:', cart);
+            console.log(' state.activeProduct::',  state.activeProduct);
             return { ...state, cart: cart, count: state.count + 1 };
         // return { ...state,productCart };
 
         case "DELETE":
-            state.products = state.products.map((product) => {
+            state.activeProduct =  state.activeProduct.map((product) => {
                 if (product.name === payload.product.name) {
-                  product.inventoryCount = product.inventoryCount + 1;
+                  product.inventory = product.inventory + 1;
         
-                  return product;
+                 return product;
                 }
-                return product;
+               return product;
               });
         
             return {
