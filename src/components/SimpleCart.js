@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Badge, Menu, MenuItem, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { deleteProduct } from "../reducers/actions";
+import { deleteProduct } from "../store/actions";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -27,57 +27,40 @@ const SimpleCart = (props) => {
         <>
             <div style={{ position: "absolute", right: "20px" }}>
 
-
                 <section >
                     <Button style={{ color: 'white' }}
                         id="basic-button"
                         aria-controls={open ? 'basic-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
-                        onClick={handleClick}
-                    >
+                        onClick={handleClick}>
+                            
                         Cart ({props.count})
                     </Button>
                     {/* {console.log('carttt in page', props.cart)} */}
 
-                    <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                        }} >
+                    <Menu id="basic-menu"
+                        anchorEl={anchorEl} open={open} onClose={handleClose} 
+                         MenuListProps={{'aria-labelledby': 'basic-button'}} >
 
-                        { props.cart.map((item, idx) => {
+                        {props.cart.map((item, idx) => {
+                            return (
+                                <MenuItem key={idx}>
+                                    <div>
+                                        <span>{item.name}</span>
 
-                                return (
-                                    <MenuItem key={idx}>
-                                       
-                                                <div>
+                                        <Button
+                                            color="secondary"
+                                            onClick={() => {props.deleteProduct(item, idx) }}>
+                                            Delete
+                                        </Button>
 
-                                                    <span>{item.name}</span>
-                                                    <Button
-                                                        color="secondary"
-                                                        onClick={() => {
-                                                            props.deleteProduct(item, idx);
-                                                        }}>
-
-                                                        Delete
-                                                    </Button>
-                                                </div>
-
-                                        
-                                        {/* {console.log('item.name',item[idx].name)} */}
-                                    </MenuItem>
-                                );
-                            })
-
-
-                        }
+                                    </div>
+                                    {/* {console.log('item.name',item[idx].name)} */}
+                                </MenuItem>
+                            );
+                        }) }
                     </Menu>
-
-
                 </section>
             </div>
         </>

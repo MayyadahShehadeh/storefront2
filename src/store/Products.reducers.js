@@ -3,8 +3,7 @@ import pizza from '../images/cheese-pizza.jpg';
 import pasta from '../images/pasta.jpeg';
 import ipad from '../images/ipad.webp';
 
-
-let initialStete = {
+let initialState = {
     products: [
         {
             category: "ELECTRONICS",
@@ -13,7 +12,6 @@ let initialStete = {
             price: "JD 559",
             img: iphone12,
             inventory: 10,
-
         },
         {
             category: "ELECTRONICS",
@@ -22,7 +20,6 @@ let initialStete = {
             price: "JD 425",
             img: ipad,
             inventory: 15,
-
         },
         {
             category: "FOOD",
@@ -44,64 +41,74 @@ let initialStete = {
     activeProduct: [],
     cart: [],
     count: 0,
+    getDataArray:[],
 }
 
-export default function productsReducer(state = initialStete, action) {
+export default function productsReducer(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
+
+        case "GET":
+          state.getDataArray = payload
+            return state
+                   
+
         case "ACTIVE":
-            state.activeProduct = state.products.filter(item => {
+            // ----- date from array 
+            let getActivePro = state.products.filter(item => {
                 if (item.category == payload) {
                     return item.category;
                 }
             });
-            // console.log("products", product);
-            // console.log("state", { ...state, product});
+            // ------- data from backend api 
+            let activeData = state.getDataArray.filter(item => {
+                if (item.category == payload) {
+                    return item.category;
+                }
+            });
+            // --------- add all in one array 
+            state.activeProduct = [...activeData,...getActivePro];
 
-            return state 
+            return state
+
 
 
         case "ADDPRODUCT":
-            state.activeProduct=  state.activeProduct.map((product) => {
+            state.activeProduct = state.activeProduct.map((product) => {
                 if (product.name === payload.name && product.inventory > 0) {
                     product.inventory = product.inventory - 1;
                     return product;
-
                 }
-            return product;
+                return product;
             });
 
             let cart = [...state.cart, payload];
-            console.log("paylod", payload);
             console.log('cartt:', cart);
-            console.log(' state.activeProduct::',  state.activeProduct);
+            console.log(' state.activeProduct::', state.activeProduct);
             return { ...state, cart: cart, count: state.count + 1 };
-        // return { ...state,productCart };
+
+
 
         case "DELETE":
-            state.activeProduct =  state.activeProduct.map((product) => {
+            state.activeProduct = state.activeProduct.map((product) => {
                 if (product.name === payload.product.name) {
-                  product.inventory = product.inventory + 1;
-        
-                 return product;
-                }
-               return product;
-              });
-        
-            return {
+                    product.inventory = product.inventory + 1;
 
+                    return product;
+                }
+                return product;
+            });
+            return {
                 ...state,
-                cart: state.cart.filter((item,idx) => idx !== payload.id),
-                count: state.count - 1 
+                cart: state.cart.filter((item, idx) => idx !== payload.id),
+                count: state.count - 1
             }
-            
- 
+
+
         default:
             return state;
 
     }
 
 }
-
-

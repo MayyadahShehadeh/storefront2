@@ -1,15 +1,10 @@
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import { Toolbar, Box, Container} from '@mui/material';
-
 import { connect } from "react-redux";
 import SimpleCart from './SimpleCart';
 
-
-
 function Header(props) {
-
-
 
     return (
         <AppBar position="static" >
@@ -25,10 +20,6 @@ function Header(props) {
 
                         {/*  ================ here add cart icon ----------------------- */}
                         <SimpleCart />
-                        {/* <Button color="inherit"
-                         onClick={() => props.showCart(!props.show) } 
-                         >
-                            Cart ({props.count})</Button> */}
 
                     </Box>
                 </Toolbar>
@@ -38,7 +29,8 @@ function Header(props) {
 }
 
 const mapStateToprops = (state) => {
-    return { cart: state.productsReducer.cart,
+    return { 
+    cart: state.productsReducer.cart,
     count: state.productsReducer.count
     };
   };

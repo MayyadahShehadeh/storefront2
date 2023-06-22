@@ -14,6 +14,7 @@ function App() {
    <Header/>
   <Categories/>
   <Products/>
+  <br/><br/><br/><br/>
   <Footer/>
     </div>
   );

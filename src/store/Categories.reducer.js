@@ -22,15 +22,15 @@ export default (state = initialStete, action) => {
 
     switch (type) {
         case "ACTIVE":
-            let category = state.categories;
-            
-            let activeCateg = payload;
-            console.log("active category>>>>",activeCateg);
+            state.activeCategory = payload;
+            console.log("active category>>>>",payload);
 
-            return { category, activeCategory: activeCateg };
+            return {...state}
+
 
         case "RESET":
             return initialStete;
+
         default:
             return state;
     }
