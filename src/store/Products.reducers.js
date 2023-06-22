@@ -3,8 +3,7 @@ import pizza from '../images/cheese-pizza.jpg';
 import pasta from '../images/pasta.jpeg';
 import ipad from '../images/ipad.webp';
 
-
-let initialStete = {
+let initialState = {
     products: [
         {
             category: "ELECTRONICS",
@@ -13,7 +12,6 @@ let initialStete = {
             price: "JD 559",
             img: iphone12,
             inventory: 10,
-
         },
         {
             category: "ELECTRONICS",
@@ -22,7 +20,6 @@ let initialStete = {
             price: "JD 425",
             img: ipad,
             inventory: 15,
-
         },
         {
             category: "FOOD",
@@ -44,19 +41,35 @@ let initialStete = {
     activeProduct: [],
     cart: [],
     count: 0,
+    getDataArray:[],
 }
 
-export default function productsReducer(state = initialStete, action) {
+export default function productsReducer(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
-        
+
+        case "GET":
+          state.getDataArray = payload
+            return state
+                   
+
         case "ACTIVE":
-            state.activeProduct = state.products.filter(item => {
+            // ----- date from array 
+            let getActivePro = state.products.filter(item => {
                 if (item.category == payload) {
                     return item.category;
                 }
             });
+            // ------- data from backend api 
+            let activeData = state.getDataArray.filter(item => {
+                if (item.category == payload) {
+                    return item.category;
+                }
+            });
+            // --------- add all in one array 
+            state.activeProduct = [...activeData,...getActivePro];
+
             return state
 
 
@@ -71,11 +84,9 @@ export default function productsReducer(state = initialStete, action) {
             });
 
             let cart = [...state.cart, payload];
-            console.log("paylod", payload);
             console.log('cartt:', cart);
             console.log(' state.activeProduct::', state.activeProduct);
             return { ...state, cart: cart, count: state.count + 1 };
-
 
 
 
@@ -88,7 +99,6 @@ export default function productsReducer(state = initialStete, action) {
                 }
                 return product;
             });
-
             return {
                 ...state,
                 cart: state.cart.filter((item, idx) => idx !== payload.id),
@@ -102,5 +112,3 @@ export default function productsReducer(state = initialStete, action) {
     }
 
 }
-
-

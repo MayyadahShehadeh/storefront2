@@ -2,7 +2,7 @@ import React from 'react'
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import { connect } from 'react-redux';
-import { activeCategory } from '../reducers/Categories.reducer';
+import { activeCategory } from '../store/Categories.reducer';
 
 
 function Categories(props) {
@@ -28,7 +28,6 @@ function Categories(props) {
 }
 
 const mapStateToProps = state => ({
-    categories: state.categoryReducer.categories,
     activeCateg: state.categoryReducer.activeCategory
 });
 

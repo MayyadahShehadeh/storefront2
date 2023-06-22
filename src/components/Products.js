@@ -1,13 +1,15 @@
-import React from 'react'
-import { Typography, CardMedia, CardContent, Card, CardActionArea, Button, CardActions } from '@mui/material';
+import React, { useEffect } from 'react'
+import {
+    Typography, CardMedia, CardContent, Card, CardActionArea, Button,
+    CardActions, Grid, Paper, Box
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import { connect } from 'react-redux';
-import { addProduct } from '../reducers/actions';
+import { connect, useDispatch } from 'react-redux';
+import { addProduct, getAction, getData } from '../store/actions';
 
 function Products(props) {
+
+
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -17,28 +19,30 @@ function Products(props) {
     }));
 
 
+    const dispatch = useDispatch();
+    useEffect(() => {
+        props.getAction(dispatch(getData()))
+    }, [props.products])
+
+    // console.log('props.products in page',props.products);
+
     return (
         <div>
             {/* {console.log('prosuctss', props.products)} */}
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
 
-
                     {props.products.map((item, idx) => {
                         if (props.activeCategory == item.category) {
 
                             return (
-                                <Grid item xs={2} sm={4} md={4} key={idx}>
+                                <Grid item xs={2} sm={4} md={2} key={idx}>
                                     <Item>
 
                                         <Card sx={{ maxWidth: 200 }} key={idx}>
                                             <CardActionArea>
                                                 <CardMedia
-                                                    component="img"
-                                                    // height="300px"
-                                                    image={item.img}
-                                                    alt={item.name}
-                                                />
+                                                    component="img" image={item.img} alt={item.name} />
                                                 <CardContent>
                                                     <Typography gutterBottom variant="h6" component="div">
                                                         {item.name}
@@ -54,11 +58,13 @@ function Products(props) {
                                                     <Button size="small" onClick={() => {
                                                         if (item.inventory) {
                                                             props.addProduct(item);
-                                                           
+
                                                         } else {
-                                                            alert("empty item");
+                                                            alert("empty");
                                                         }
-                                                    }}>ADD TO CART</Button>
+                                                    }}>ADD TO CART
+                                                    </Button>
+                                                    
                                                 </CardActions>
                                             </CardActionArea>
                                         </Card>
@@ -77,6 +83,6 @@ const mapStateToProps = state => ({
     products: state.productsReducer.activeProduct,
     activeCategory: state.categoryReducer.activeCategory
 })
-const mapDispatchToProps = { addProduct };
+const mapDispatchToProps = { addProduct, getAction };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);
